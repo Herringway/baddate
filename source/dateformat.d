@@ -69,22 +69,22 @@ auto formattedDateTime(string fmt)(string input) {
 	}
 	foreach (portion; aliasSeqOf!seq) {
 		static if (portion == "%d") {
-			formattedRead(input, "%s", &day);
+			formattedRead(input, "%s", day);
 		} else static if (portion == "%m") {
 			ubyte monthRep;
-			formattedRead(input, "%s", &monthRep);
+			formattedRead(input, "%s", monthRep);
 			month = cast(Month)monthRep;
 		} else static if (portion == "%y") {
-			formattedRead(input, "%s", &year);
+			formattedRead(input, "%s", year);
 			year = cast(short)((year > 69) ? year + 1900 : year + 2000);
 		} else static if (portion == "%Y") {
-			formattedRead(input, "%s", &year);
+			formattedRead(input, "%s", year);
 		} else static if (portion == "%H") {
-			formattedRead(input, "%s", &hour);
+			formattedRead(input, "%s", hour);
 		} else static if (portion == "%M") {
-			formattedRead(input, "%s", &minute);
+			formattedRead(input, "%s", minute);
 		} else static if (portion == "%S") {
-			formattedRead(input, "%s", &second);
+			formattedRead(input, "%s", second);
 		} else static if (portion == "%s") {
 			bool negative;
 			if (input.startsWith('-')) {
@@ -180,7 +180,7 @@ auto formattedDateTime(string fmt)(string input) {
 	} else static assert(0, "No time components found in format string");
 }
 ///
-unittest {
+@safe unittest {
 	import dunit.toolkit : assertEqual;
 	formattedDateTime!"%m-%d-%y"("03-01-94").assertEqual(Date(1994, 03, 01));
 
