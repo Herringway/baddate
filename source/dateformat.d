@@ -42,6 +42,34 @@ private auto splitSequence(string str) {
 	assert(splitSequence("-") == ["-"]);
 	assert(splitSequence("--") == ["--"]);
 }
+/++
++ Read a formatted date string into its most appropriate date object.
++
++ Params:
++		fmt = date/time format
++		input = string to parse
++
++ Supported format specs are:
++
++   %d - day of month
++
++   %m - month
++
++   %y - year (4 digits)
++
++   %Y year (2 digits)
++
++   %H - hour
++
++   %M - minute
++
++   %S - second
++
++   %Z - Timezone
++
++   %s - Fractions of a second
++
++/
 auto formattedDateTime(string fmt)(string input) {
 	alias dateComponents = AliasSeq!("%d", "%m", "%y", "%Y");
 	alias timeComponents = AliasSeq!("%H", "%M", "%S", "%I");
