@@ -52,7 +52,7 @@ auto formattedDateTime(string fmt)(string input) {
 		Duration offset;
 	}
 	static if (seq.canFind(fracSecComponents)) {
-		FracSec fraction;
+		Duration fraction;
 		static if (!seq.canFind(timeComponents) && !seq.canFind(timezoneComponents)) {
 			int second;
 		}
@@ -107,7 +107,7 @@ auto formattedDateTime(string fmt)(string input) {
 					input.popFront();
 				}
 				hnsecs *= 10^^(7-digitsRead);
-				fraction.hnsecs = hnsecs;
+				fraction = hnsecs.hnsecs;
 			}
 			second *= negative ? -1 : 1;
 		} else static if (portion == "%Z") {
@@ -206,7 +206,7 @@ auto formattedDateTime(string fmt)(string input) {
 
 	formattedDateTime!"%m-%d-%y %H:%M:%S %Z"("03-01-94 12:34:53 -01").assertEqual(SysTime(DateTime(Date(1994, 03, 01), TimeOfDay(11, 34, 53)), UTC()));
 
-	formattedDateTime!"%Y-%m-%d %H:%M:%s"("2013-09-28 02:07:11.633883").assertEqual(tuple(DateTime(2013, 09, 28, 02, 07, 11), FracSec.from!"usecs"(633_883)));
+	formattedDateTime!"%Y-%m-%d %H:%M:%s"("2013-09-28 02:07:11.633883").assertEqual(tuple(DateTime(2013, 09, 28, 02, 07, 11), 633_883.usecs));
 
 	formattedDateTime!"%Y-%m-%d %H:%M:%S"("2007-11-28 04:00:27").assertEqual(DateTime(2007, 11, 28, 04, 00, 27));
 
