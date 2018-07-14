@@ -181,34 +181,33 @@ auto formattedDateTime(string fmt)(string input) {
 }
 ///
 @safe unittest {
-	import dunit.toolkit : assertEqual;
-	formattedDateTime!"%m-%d-%y"("03-01-94").assertEqual(Date(1994, 03, 01));
+	assert(formattedDateTime!"%m-%d-%y"("03-01-94") == Date(1994, 03, 01));
 
-	formattedDateTime!"%H:%M:%S"("12:34:53").assertEqual(TimeOfDay(12, 34, 53));
+	assert(formattedDateTime!"%H:%M:%S"("12:34:53") == TimeOfDay(12, 34, 53));
 
-	formattedDateTime!"%m-%d-%y %H:%M:%S"("03-01-94 12:34:53").assertEqual(DateTime(Date(1994, 03, 01), TimeOfDay(12, 34, 53)));
+	assert(formattedDateTime!"%m-%d-%y %H:%M:%S"("03-01-94 12:34:53") == DateTime(Date(1994, 03, 01), TimeOfDay(12, 34, 53)));
 
-	formattedDateTime!"%m-%d-%y %H:%M:%S %Z"("03-01-94 12:34:53 +0000").assertEqual(SysTime(DateTime(Date(1994, 03, 01), TimeOfDay(12, 34, 53)), UTC()));
+	assert(formattedDateTime!"%m-%d-%y %H:%M:%S %Z"("03-01-94 12:34:53 +0000") == SysTime(DateTime(Date(1994, 03, 01), TimeOfDay(12, 34, 53)), UTC()));
 
-	formattedDateTime!"%m-%d-%y %H:%M:%S %Z"("03-01-94 12:34:53 +0100").assertEqual(SysTime(DateTime(Date(1994, 03, 01), TimeOfDay(13, 34, 53)), UTC()));
+	assert(formattedDateTime!"%m-%d-%y %H:%M:%S %Z"("03-01-94 12:34:53 +0100") == SysTime(DateTime(Date(1994, 03, 01), TimeOfDay(13, 34, 53)), UTC()));
 
-	formattedDateTime!"%m-%d-%y %H:%M:%S %Z"("03-01-94 12:34:53 -0100").assertEqual(SysTime(DateTime(Date(1994, 03, 01), TimeOfDay(11, 34, 53)), UTC()));
+	assert(formattedDateTime!"%m-%d-%y %H:%M:%S %Z"("03-01-94 12:34:53 -0100") == SysTime(DateTime(Date(1994, 03, 01), TimeOfDay(11, 34, 53)), UTC()));
 
-	formattedDateTime!"%m-%d-%y %H:%M:%S %Z"("03-01-94 12:34:53 +00:00").assertEqual(SysTime(DateTime(Date(1994, 03, 01), TimeOfDay(12, 34, 53)), UTC()));
+	assert(formattedDateTime!"%m-%d-%y %H:%M:%S %Z"("03-01-94 12:34:53 +00:00") == SysTime(DateTime(Date(1994, 03, 01), TimeOfDay(12, 34, 53)), UTC()));
 
-	formattedDateTime!"%m-%d-%y %H:%M:%S %Z"("03-01-94 12:34:53 +01:00").assertEqual(SysTime(DateTime(Date(1994, 03, 01), TimeOfDay(13, 34, 53)), UTC()));
+	assert(formattedDateTime!"%m-%d-%y %H:%M:%S %Z"("03-01-94 12:34:53 +01:00") == SysTime(DateTime(Date(1994, 03, 01), TimeOfDay(13, 34, 53)), UTC()));
 
-	formattedDateTime!"%m-%d-%y %H:%M:%S %Z"("03-01-94 12:34:53 -01:00").assertEqual(SysTime(DateTime(Date(1994, 03, 01), TimeOfDay(11, 34, 53)), UTC()));
+	assert(formattedDateTime!"%m-%d-%y %H:%M:%S %Z"("03-01-94 12:34:53 -01:00") == SysTime(DateTime(Date(1994, 03, 01), TimeOfDay(11, 34, 53)), UTC()));
 
-	formattedDateTime!"%m-%d-%y %H:%M:%S %Z"("03-01-94 12:34:53 +00").assertEqual(SysTime(DateTime(Date(1994, 03, 01), TimeOfDay(12, 34, 53)), UTC()));
+	assert(formattedDateTime!"%m-%d-%y %H:%M:%S %Z"("03-01-94 12:34:53 +00") == SysTime(DateTime(Date(1994, 03, 01), TimeOfDay(12, 34, 53)), UTC()));
 
-	formattedDateTime!"%m-%d-%y %H:%M:%S %Z"("03-01-94 12:34:53 +01").assertEqual(SysTime(DateTime(Date(1994, 03, 01), TimeOfDay(13, 34, 53)), UTC()));
+	assert(formattedDateTime!"%m-%d-%y %H:%M:%S %Z"("03-01-94 12:34:53 +01") == SysTime(DateTime(Date(1994, 03, 01), TimeOfDay(13, 34, 53)), UTC()));
 
-	formattedDateTime!"%m-%d-%y %H:%M:%S %Z"("03-01-94 12:34:53 -01").assertEqual(SysTime(DateTime(Date(1994, 03, 01), TimeOfDay(11, 34, 53)), UTC()));
+	assert(formattedDateTime!"%m-%d-%y %H:%M:%S %Z"("03-01-94 12:34:53 -01") == SysTime(DateTime(Date(1994, 03, 01), TimeOfDay(11, 34, 53)), UTC()));
 
-	formattedDateTime!"%Y-%m-%d %H:%M:%s"("2013-09-28 02:07:11.633883").assertEqual(tuple(DateTime(2013, 09, 28, 02, 07, 11), 633_883.usecs));
+	assert(formattedDateTime!"%Y-%m-%d %H:%M:%s"("2013-09-28 02:07:11.633883") == tuple(DateTime(2013, 09, 28, 02, 07, 11), 633_883.usecs));
 
-	formattedDateTime!"%Y-%m-%d %H:%M:%S"("2007-11-28 04:00:27").assertEqual(DateTime(2007, 11, 28, 04, 00, 27));
+	assert(formattedDateTime!"%Y-%m-%d %H:%M:%S"("2007-11-28 04:00:27") == DateTime(2007, 11, 28, 04, 00, 27));
 
-	formattedDateTime!"%Y-%m-%d %H:%M:%S"("2016-01-15 08:25:20").assertEqual(DateTime(2016, 01, 15, 08, 25, 20));
+	assert(formattedDateTime!"%Y-%m-%d %H:%M:%S"("2016-01-15 08:25:20") == DateTime(2016, 01, 15, 08, 25, 20));
 }

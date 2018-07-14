@@ -2,14 +2,5 @@
 	"name": "dateformat",
 	"description": "Library for reading and writing arbitrarily-formatted date strings",
 	"copyright": "Copyright © 2016, Cameron",
-	"authors": ["Cameron"],
-	"configurations": [
-		{ "name": "executable" },
-			{
-			"name": "unittest",
-			"dependencies": {
-				"dunit": "~>1.0.14"
-			}
-		}
-	]
+	"authors": ["Cameron"]
 }
