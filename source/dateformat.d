@@ -1,12 +1,12 @@
 module dateformat;
 
 import std.algorithm;
-import std.conv : to;
 import std.ascii : isDigit;
-import std.range : front, popFront, empty;
+import std.conv : to;
 import std.datetime;
 import std.format;
 import std.meta;
+import std.range : empty, front, popFront;
 import std.typecons : tuple;
 
 auto splitSequence(string str) {
