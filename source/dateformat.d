@@ -36,7 +36,7 @@ auto splitSequence(string str) {
 	}
 	return chunks;
 }
-unittest {
+@safe pure unittest {
 	assert(splitSequence("%m-%d-%y") == ["%m", "-", "%d", "-", "%y"]);
 	assert(splitSequence("%m-%%-%y") == ["%m", "-", "%%", "-", "%y"]);
 	assert(splitSequence("-") == ["-"]);
