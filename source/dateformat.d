@@ -95,7 +95,7 @@ auto formattedDateTime(string fmt)(string input) {
 		int minute;
 		int hour;
 	}
-	foreach (portion; aliasSeqOf!seq) {
+	static foreach (portion; seq) {
 		static if (portion == "%d") {
 			formattedRead(input, "%s", day);
 		} else static if (portion == "%m") {
