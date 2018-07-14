@@ -9,7 +9,7 @@ import std.meta;
 import std.range : empty, front, popFront;
 import std.typecons : tuple;
 
-auto splitSequence(string str) {
+private auto splitSequence(string str) {
 	string[] chunks;
 	bool isEscape;
 	string currentChunk;
