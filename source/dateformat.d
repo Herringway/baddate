@@ -61,6 +61,8 @@ private auto splitSequence(string str) {
 +
 +   %H - hour
 +
++   %h- hour (12 hour clock)
++
 +   %M - minute
 +
 +   %S - second
@@ -69,10 +71,12 @@ private auto splitSequence(string str) {
 +
 +   %s - Fractions of a second
 +
++   %p - AM/PM (case insensitive)
++
 +/
 auto formattedDateTime(string fmt)(string input) {
 	alias dateComponents = AliasSeq!("%d", "%m", "%y", "%Y");
-	alias timeComponents = AliasSeq!("%H", "%M", "%S", "%I");
+	alias timeComponents = AliasSeq!("%H", "%M", "%S", "%h");
 	alias timezoneComponents = AliasSeq!("%Z");
 	alias fracSecComponents = AliasSeq!("%s");
 	enum seq = splitSequence(fmt);
@@ -95,6 +99,12 @@ auto formattedDateTime(string fmt)(string input) {
 		int minute;
 		int hour;
 	}
+	static assert (seq.canFind("%h") == seq.canFind("%p"), "AM/PM (%p) and 12-hour clock (%h) must be specified together");
+
+	static if (seq.canFind("%p")) {
+		bool pmOffset;
+	}
+
 	static foreach (portion; seq) {
 		static if (portion == "%d") {
 			formattedRead(input, "%s", day);
@@ -107,7 +117,7 @@ auto formattedDateTime(string fmt)(string input) {
 			year = cast(short)((year > 69) ? year + 1900 : year + 2000);
 		} else static if (portion == "%Y") {
 			formattedRead(input, "%s", year);
-		} else static if (portion == "%H") {
+		} else static if ((portion == "%H") || (portion == "%h")) {
 			formattedRead(input, "%s", hour);
 		} else static if (portion == "%M") {
 			formattedRead(input, "%s", minute);
@@ -173,11 +183,25 @@ auto formattedDateTime(string fmt)(string input) {
 					}
 				}
 			}
+		} else static if (portion == "%p") {
+			import std.string : toLower;
+			assert(input.length >= 2, "Expected AM/PM, got end of string");
+			auto buf = input[0..2];
+			assert(buf[].toLower.among("am", "pm"), "Expected AM/PM, got "~buf);
+			if (buf[].toLower == "pm") {
+				pmOffset = true;
+			}
 		} else {
 			formattedRead(input, portion);
 		}
 	}
-
+	static if (seq.canFind("%p")) {
+		//At 12:00AM or PM, the logic inverts.
+		if (hour == 12) {
+			pmOffset = !pmOffset;
+		}
+		hour = (hour+12*pmOffset)%24;
+	}
 	static if (seq.canFind(timezoneComponents)) {
 		immutable tz = new immutable SimpleTimeZone(offset, "");
 		static if (seq.canFind(fracSecComponents)) {
@@ -238,4 +262,10 @@ auto formattedDateTime(string fmt)(string input) {
 	assert(formattedDateTime!"%Y-%m-%d %H:%M:%S"("2007-11-28 04:00:27") == DateTime(2007, 11, 28, 04, 00, 27));
 
 	assert(formattedDateTime!"%Y-%m-%d %H:%M:%S"("2016-01-15 08:25:20") == DateTime(2016, 01, 15, 08, 25, 20));
+
+	assert(formattedDateTime!"%h:%M:%S %p"("08:25:20 PM") == TimeOfDay(20, 25, 20));
+
+	assert(formattedDateTime!"%h:%M:%S %p"("12:25:20 PM") == TimeOfDay(12, 25, 20));
+
+	assert(formattedDateTime!"%h:%M:%S %p"("12:25:20 AM") == TimeOfDay(0, 25, 20));
 }
