@@ -63,9 +63,9 @@ auto formattedDateTime(string fmt)(string input) {
 		short year = 1;
 	}
 	static if (seq.canFind(timeComponents) || seq.canFind(timezoneComponents)) {
-		int second = 0;
-		int minute = 0;
-		int hour = 0;
+		int second;
+		int minute;
+		int hour;
 	}
 	foreach (portion; aliasSeqOf!seq) {
 		static if (portion == "%d") {
