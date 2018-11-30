@@ -1,4 +1,4 @@
-module dateformat;
+module baddate;
 
 import std.algorithm;
 import std.ascii : isDigit;

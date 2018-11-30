@@ -1,5 +1,5 @@
 {
-	"name": "dateformat",
+	"name": "baddate",
 	"description": "Library for reading and writing arbitrarily-formatted date strings",
 	"copyright": "Copyright © 2016, Cameron",
 	"authors": ["Cameron"]
