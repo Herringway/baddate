@@ -233,35 +233,35 @@ auto formattedDateTime(string fmt)(string input) {
 }
 ///
 @safe unittest {
-	assert(formattedDateTime!"%m-%d-%y"("03-01-94") == Date(1994, 03, 01));
+	assert(formattedDateTime!"%m-%d-%y"("03-01-94") == Date(1994, 3, 1));
 
 	assert(formattedDateTime!"%H:%M:%S"("12:34:53") == TimeOfDay(12, 34, 53));
 
-	assert(formattedDateTime!"%m-%d-%y %H:%M:%S"("03-01-94 12:34:53") == DateTime(Date(1994, 03, 01), TimeOfDay(12, 34, 53)));
+	assert(formattedDateTime!"%m-%d-%y %H:%M:%S"("03-01-94 12:34:53") == DateTime(Date(1994, 3, 1), TimeOfDay(12, 34, 53)));
 
-	assert(formattedDateTime!"%m-%d-%y %H:%M:%S %Z"("03-01-94 12:34:53 +0000") == SysTime(DateTime(Date(1994, 03, 01), TimeOfDay(12, 34, 53)), UTC()));
+	assert(formattedDateTime!"%m-%d-%y %H:%M:%S %Z"("03-01-94 12:34:53 +0000") == SysTime(DateTime(Date(1994, 3, 1), TimeOfDay(12, 34, 53)), UTC()));
 
-	assert(formattedDateTime!"%m-%d-%y %H:%M:%S %Z"("03-01-94 12:34:53 +0100") == SysTime(DateTime(Date(1994, 03, 01), TimeOfDay(13, 34, 53)), UTC()));
+	assert(formattedDateTime!"%m-%d-%y %H:%M:%S %Z"("03-01-94 12:34:53 +0100") == SysTime(DateTime(Date(1994, 3, 1), TimeOfDay(13, 34, 53)), UTC()));
 
-	assert(formattedDateTime!"%m-%d-%y %H:%M:%S %Z"("03-01-94 12:34:53 -0100") == SysTime(DateTime(Date(1994, 03, 01), TimeOfDay(11, 34, 53)), UTC()));
+	assert(formattedDateTime!"%m-%d-%y %H:%M:%S %Z"("03-01-94 12:34:53 -0100") == SysTime(DateTime(Date(1994, 3, 1), TimeOfDay(11, 34, 53)), UTC()));
 
-	assert(formattedDateTime!"%m-%d-%y %H:%M:%S %Z"("03-01-94 12:34:53 +00:00") == SysTime(DateTime(Date(1994, 03, 01), TimeOfDay(12, 34, 53)), UTC()));
+	assert(formattedDateTime!"%m-%d-%y %H:%M:%S %Z"("03-01-94 12:34:53 +00:00") == SysTime(DateTime(Date(1994, 3, 1), TimeOfDay(12, 34, 53)), UTC()));
 
-	assert(formattedDateTime!"%m-%d-%y %H:%M:%S %Z"("03-01-94 12:34:53 +01:00") == SysTime(DateTime(Date(1994, 03, 01), TimeOfDay(13, 34, 53)), UTC()));
+	assert(formattedDateTime!"%m-%d-%y %H:%M:%S %Z"("03-01-94 12:34:53 +01:00") == SysTime(DateTime(Date(1994, 3, 1), TimeOfDay(13, 34, 53)), UTC()));
 
-	assert(formattedDateTime!"%m-%d-%y %H:%M:%S %Z"("03-01-94 12:34:53 -01:00") == SysTime(DateTime(Date(1994, 03, 01), TimeOfDay(11, 34, 53)), UTC()));
+	assert(formattedDateTime!"%m-%d-%y %H:%M:%S %Z"("03-01-94 12:34:53 -01:00") == SysTime(DateTime(Date(1994, 3, 1), TimeOfDay(11, 34, 53)), UTC()));
 
-	assert(formattedDateTime!"%m-%d-%y %H:%M:%S %Z"("03-01-94 12:34:53 +00") == SysTime(DateTime(Date(1994, 03, 01), TimeOfDay(12, 34, 53)), UTC()));
+	assert(formattedDateTime!"%m-%d-%y %H:%M:%S %Z"("03-01-94 12:34:53 +00") == SysTime(DateTime(Date(1994, 3, 1), TimeOfDay(12, 34, 53)), UTC()));
 
-	assert(formattedDateTime!"%m-%d-%y %H:%M:%S %Z"("03-01-94 12:34:53 +01") == SysTime(DateTime(Date(1994, 03, 01), TimeOfDay(13, 34, 53)), UTC()));
+	assert(formattedDateTime!"%m-%d-%y %H:%M:%S %Z"("03-01-94 12:34:53 +01") == SysTime(DateTime(Date(1994, 3, 1), TimeOfDay(13, 34, 53)), UTC()));
 
-	assert(formattedDateTime!"%m-%d-%y %H:%M:%S %Z"("03-01-94 12:34:53 -01") == SysTime(DateTime(Date(1994, 03, 01), TimeOfDay(11, 34, 53)), UTC()));
+	assert(formattedDateTime!"%m-%d-%y %H:%M:%S %Z"("03-01-94 12:34:53 -01") == SysTime(DateTime(Date(1994, 3, 1), TimeOfDay(11, 34, 53)), UTC()));
 
-	assert(formattedDateTime!"%Y-%m-%d %H:%M:%s"("2013-09-28 02:07:11.633883") == tuple(DateTime(2013, 09, 28, 02, 07, 11), 633_883.usecs));
+	assert(formattedDateTime!"%Y-%m-%d %H:%M:%s"("2013-09-28 02:07:11.633883") == tuple(DateTime(2013, 9, 28, 2, 7, 11), 633_883.usecs));
 
-	assert(formattedDateTime!"%Y-%m-%d %H:%M:%S"("2007-11-28 04:00:27") == DateTime(2007, 11, 28, 04, 00, 27));
+	assert(formattedDateTime!"%Y-%m-%d %H:%M:%S"("2007-11-28 04:00:27") == DateTime(2007, 11, 28, 4, 0, 27));
 
-	assert(formattedDateTime!"%Y-%m-%d %H:%M:%S"("2016-01-15 08:25:20") == DateTime(2016, 01, 15, 08, 25, 20));
+	assert(formattedDateTime!"%Y-%m-%d %H:%M:%S"("2016-01-15 08:25:20") == DateTime(2016, 1, 15, 8, 25, 20));
 
 	assert(formattedDateTime!"%h:%M:%S %p"("08:25:20 PM") == TimeOfDay(20, 25, 20));
 
